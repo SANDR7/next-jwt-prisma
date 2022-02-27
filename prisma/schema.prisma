@@ -17,6 +17,7 @@ model User {
   password String
 
   Posts Posts[]
+  role  Role
 
   @@map("users")
 }
@@ -30,4 +31,9 @@ model Posts {
   userId String? @map("user_id") @db.VarChar(40)
 
   @@map("posts")
+}
+
+enum Role {
+  USER
+  ADMIN
 }
