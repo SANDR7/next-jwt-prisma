@@ -18,7 +18,7 @@ const Register = () => {
       console.log("Password doesn't match");
     }
 
-    const response = await axios.post("/api/user/post", { username, password });
+    const response = await axios.post("/api/insert/user", { username, password });
     console.log(response.data);
   };
 
