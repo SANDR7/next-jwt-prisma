@@ -1,8 +1,9 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { NextApiRequest, NextApiResponse } from "next";
-import { hash } from 'bcrypt'
 import prisma from "../../../lib/prisma";
 import handleMessage from "../../../constants/ApiMessage";
+
+import { NextApiRequest, NextApiResponse } from "next";
+import { hash } from 'bcrypt'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
 
@@ -21,7 +22,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             }
         })
         console.log(saveUser);
-        
+
 
         res.status(200).json(handleMessage('User saved'))
 

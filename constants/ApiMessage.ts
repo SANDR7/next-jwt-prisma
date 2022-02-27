@@ -1,4 +1,4 @@
-const handleMessage = (message = '', success = true, error = false) => {
+const apiMessage = (message = '', success = true, error = false) => {
     return {
         message,
         success,
@@ -6,5 +6,5 @@ const handleMessage = (message = '', success = true, error = false) => {
     }
 }
 
-export default handleMessage;
+export default apiMessage;
 
