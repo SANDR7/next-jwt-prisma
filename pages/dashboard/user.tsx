@@ -1,7 +1,6 @@
 import { Posts, User} from "@prisma/client";
 import axios from "axios";
 import { GetServerSideProps } from "next";
-import { useRouter } from "next/router";
 
 import React from "react";
 import AuthContainer from "@/components/layout/Auth";

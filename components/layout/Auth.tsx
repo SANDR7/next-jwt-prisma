@@ -7,7 +7,7 @@ import React, { FC, ReactNode } from "react";
 interface MainProps {
   children: ReactNode;
   title?: string;
-  credentials?: User;
+  credentials: User;
 }
 
 const AuthContainer: FC<MainProps> = (props) => {
