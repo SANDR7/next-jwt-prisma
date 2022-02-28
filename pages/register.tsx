@@ -10,6 +10,8 @@ const Register = () => {
     repeatPassword: "",
   });
 
+  const [validate, setValidate] = useState({message: 'Try register'});
+
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     const { username, password, repeatPassword } = formFields;
@@ -19,11 +21,14 @@ const Register = () => {
     }
 
     const response = await axios.post("/api/insert/user", { username, password });
+
+    setValidate(response.data)
     console.log(response.data);
   };
 
   return (
     <PageContainer>
+      {validate.message}
       <form onSubmit={handleSubmit}>
         {formFields.password !== formFields.repeatPassword && "match niet"}
         <div>

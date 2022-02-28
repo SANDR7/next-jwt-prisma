@@ -56,7 +56,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         res.status(200).json(apiMessage("User signed with token"));
     } catch {
         res
-            .status(500)
-            .json(apiMessage("Something went wrong with the JWT token", false, true));
+            .json(apiMessage("Not registered", false, true));
     }
 };

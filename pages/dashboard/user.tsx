@@ -1,4 +1,4 @@
-import { User } from "@prisma/client";
+import { Posts, User} from "@prisma/client";
 import axios from "axios";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
@@ -6,18 +6,20 @@ import { useRouter } from "next/router";
 import React from "react";
 import AuthContainer from "@/components/layout/Auth";
 
-const User = ({ user }: { user: any }) => {
+const User = ({ user, userPosts }: { user: User; userPosts: Posts[] }) => {
   console.log(user);
 
   return (
     <AuthContainer credentials={user}>
       Hi user with the name {user.username}
-
-
       <div>
-        {user.posts && user.posts.map((post: any) => (
-          <div key={post.id}>{post.title}</div>
-        ))}
+        {userPosts &&
+          userPosts.map((post: Posts) => (
+            <div key={post.id}>
+              <h2>{post.title}</h2>
+              <p>{post.description}</p>
+            </div>
+          ))}
       </div>
     </AuthContainer>
   );
@@ -30,7 +32,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     headers: {
       Cookie: `NextJWT=${req.cookies.NextJWT}`,
     },
-  });  
+  });
 
   if (!response.data.success || !req.cookies.NextJWT)
     return {
@@ -42,7 +44,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 
   return {
     props: {
-      user: response.data,
+      user: response.data as User,
+      userPosts: response.data.posts as Posts[],
     },
   };
 };

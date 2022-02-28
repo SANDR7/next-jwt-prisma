@@ -6,6 +6,7 @@ import PageContainer from "@/components/layout/Main";
 
 const Login = () => {
   const [formFields, setFormFields] = useState<any>();
+  const [validateMsg, setValidateMsg] = useState({message: 'Try logging in'});
 
   const router = useRouter();
 
@@ -15,14 +16,16 @@ const Login = () => {
     const { username, password } = formFields;
     const user = await axios.post("/api/auth/login", { username, password });
 
-    router.push("/dashboard/user");
+    if (user.data.success) return router.push("/dashboard/user");
 
+    setValidateMsg(user.data);
     console.log(user);
   };
 
   return (
     <PageContainer>
       <form onSubmit={handleSubmit}>
+        {validateMsg.message}
         <div>
           <label htmlFor="username">Username</label>
           <input
