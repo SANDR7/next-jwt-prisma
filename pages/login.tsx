@@ -1,28 +1,25 @@
 import axios from "axios";
+import { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
 import React, { SyntheticEvent, useState } from "react";
 import PageContainer from "../components/layout/Main";
 
 const Login = () => {
   const [formFields, setFormFields] = useState<any>();
 
+  const router = useRouter();
+
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
 
     const { username, password } = formFields;
-
     const user = await axios.post("/api/auth/login", { username, password });
 
+    router.push("/dashboard/user");
 
     console.log(user);
-    
   };
 
-  const logout =  async () => {
-    const user = await axios.get('/api/auth/logout');
-
-    console.log(user);
-    
-  }
   return (
     <PageContainer>
       <form onSubmit={handleSubmit}>
@@ -51,11 +48,24 @@ const Login = () => {
         <div>
           <input type="submit" value="Login" />
         </div>
-
-        <button onClick={() => logout()}>Log out</button>
       </form>
     </PageContainer>
   );
 };
 
 export default Login;
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  if (req.cookies.NextJWT) {
+    return {
+      props: {},
+      redirect: {
+        destination: "/dashboard/user",
+      },
+    };
+  } else {
+    return {
+      props: {},
+    };
+  }
+};
