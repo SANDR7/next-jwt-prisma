@@ -6,7 +6,9 @@ import PageContainer from "@/components/layout/Main";
 
 const Login = () => {
   const [formFields, setFormFields] = useState<any>();
-  const [validateMsg, setValidateMsg] = useState({message: 'Try logging in'});
+
+  const [checked, setChecked] = React.useState(false);
+  const [validateMsg, setValidateMsg] = useState({ message: "Try logging in" });
 
   const router = useRouter();
 
@@ -40,7 +42,7 @@ const Login = () => {
         <div>
           <label htmlFor="password">Password</label>
           <input
-            type="password"
+            type={checked ? 'text': 'password'}
             name="password"
             required
             onChange={(e) =>
@@ -49,12 +51,20 @@ const Login = () => {
           />
         </div>
         <div>
+          <input
+            type="checkbox"
+            defaultChecked={checked}
+            onChange={() => setChecked(!checked)}
+            name="showPass"
+            id="showPass"
+          />
+          Show password
+        </div>
+        <div>
           <input type="submit" value="Login" />
         </div>
       </form>
-      <button onClick={() => router.push('/register')}>
-        Registeer
-      </button>
+      <button onClick={() => router.push("/register")}>Registeer</button>
     </PageContainer>
   );
 };
