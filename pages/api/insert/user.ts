@@ -24,10 +24,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         console.log(saveUser);
 
 
-        res.status(200).json(handleMessage('User saved'))
+       return res.status(200).json(handleMessage('User saved'))
 
     } catch {
-        res.status(500).end(handleMessage('User not saved', false, true))
+       return res.status(500).end(handleMessage('User not saved', false, true))
     }
 
 

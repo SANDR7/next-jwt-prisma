@@ -1,12 +1,11 @@
 /* eslint-disable import/no-anonymous-default-export */
+import { verify } from "jsonwebtoken";
 import { NextApiRequest, NextApiResponse } from "next";
+import withProtect from "../../../middleware/withProtection";
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
-    const {cookies} = req;
+const handler = (req: NextApiRequest, res: NextApiResponse) => {
 
-    const jwtToken = cookies.NextJWT;
+  return res.status(200).json({ somedata: "secret" });
+};
 
-    console.log(jwtToken);
-    
-    
-}
+export default withProtect(handler);
