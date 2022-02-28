@@ -5,7 +5,7 @@ import prisma from "../lib/prisma";
 
 const withProtect = (handler: NextApiHandler) => {
   return async (
-    req: NextApiRequest,
+    req: NextApiRequest & {user: any},
     res: NextApiResponse
   ) => {
 
@@ -13,7 +13,6 @@ const withProtect = (handler: NextApiHandler) => {
 
 
     const jwtToken = cookies.NextJWT;
-    console.log(jwtToken);
     
 
     if (!jwtToken)
@@ -37,7 +36,8 @@ const withProtect = (handler: NextApiHandler) => {
           message: "The user belonging to this token no longer exist",
         });
 
-
+        req.user = decoded;
+        
       return handler(req, res);
     } catch {
       return res.json({

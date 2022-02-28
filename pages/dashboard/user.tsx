@@ -7,10 +7,10 @@ const User = ({ user }: { user: any }) => {
 
   return (
     <div>
-      User
-      <div>
+      Hi user with the name {user.user.username}
+      {/* <div>
         <pre>{JSON.stringify(user, null, 2)}</pre>
-      </div>
+      </div> */}
     </div>
   );
 };
