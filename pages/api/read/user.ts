@@ -1,11 +1,31 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { verify } from "jsonwebtoken";
-import { NextApiRequest, NextApiResponse } from "next";
+import { User } from "@prisma/client";
+import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
+import prisma from "../../../lib/prisma";
 import withProtect from "../../../middleware/withProtection";
 
-const handler = (req: any, res: NextApiResponse) => {
+declare module "next" {
+  interface NextApiRequest {
+    user: User;
+  }
+}
 
-  return res.status(200).json({user: req.user });
+const handler: NextApiHandler = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+) => {  
+  const user = await prisma.user.findUnique({
+    where: {
+      id: req.user.id,
+    },
+    select: {
+      email: true,
+      username: true,
+      role: true,
+    },
+  });
+
+  return res.status(200).json({...user, success: true});
 };
 
 export default withProtect(handler);

@@ -4,19 +4,12 @@ import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 import prisma from "../lib/prisma";
 
 const withProtect = (handler: NextApiHandler) => {
-  return async (
-    req: NextApiRequest & {user: any},
-    res: NextApiResponse
-  ) => {
-
+  return async (req: NextApiRequest, res: NextApiResponse) => {
     const { cookies } = req;
 
-
     const jwtToken = cookies.NextJWT;
-    
 
-    if (!jwtToken)
-      return res.json({ message: "Please log in to get access1" });
+    if (!jwtToken) return res.json({ message: "Please log in to get access1" });
 
     try {
       const decoded: any = verify(
@@ -36,8 +29,8 @@ const withProtect = (handler: NextApiHandler) => {
           message: "The user belonging to this token no longer exist",
         });
 
-        req.user = decoded;
-        
+      req.user = decoded;
+
       return handler(req, res);
     } catch {
       return res.json({

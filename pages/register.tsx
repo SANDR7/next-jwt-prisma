@@ -41,7 +41,7 @@ const Register = () => {
           <label htmlFor="password">Password</label>
           <input
             type="password"
-            name="password"
+            name="current_password"
             required
             onChange={(e) =>
               setFormFields({ ...formFields, password: e.target.value })
