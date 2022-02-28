@@ -1,9 +1,10 @@
+import { User } from "@prisma/client";
 import axios from "axios";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 
 import React from "react";
-import AuthContainer from "../../components/layout/Auth";
+import AuthContainer from "@/components/layout/Auth";
 
 const User = ({ user }: { user: any }) => {
   console.log(user);
@@ -11,6 +12,13 @@ const User = ({ user }: { user: any }) => {
   return (
     <AuthContainer credentials={user}>
       Hi user with the name {user.username}
+
+
+      <div>
+        {user.posts && user.posts.map((post: any) => (
+          <div key={post.id}>{post.title}</div>
+        ))}
+      </div>
     </AuthContainer>
   );
 };

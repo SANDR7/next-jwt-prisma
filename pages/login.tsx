@@ -2,7 +2,7 @@ import axios from "axios";
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import React, { SyntheticEvent, useState } from "react";
-import PageContainer from "../components/layout/Main";
+import PageContainer from "@/components/layout/Main";
 
 const Login = () => {
   const [formFields, setFormFields] = useState<any>();

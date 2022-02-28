@@ -1,7 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { serialize } from "cookie";
 import { NextApiRequest, NextApiResponse } from "next";
-import apiMessage from "../../../constants/ApiMessage";
+import apiMessage from "@/constants/ApiMessage";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     const {cookies} = req;

@@ -1,6 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
-import prisma from "../../../lib/prisma";
-import handleMessage from "../../../constants/ApiMessage";
+import prisma from "@/lib/prisma";
+import handleMessage from "@/constants/ApiMessage";
 
 import { NextApiRequest, NextApiResponse } from "next";
 import { hash } from "bcrypt";

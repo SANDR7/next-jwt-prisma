@@ -9,7 +9,7 @@ const withProtect = (handler: NextApiHandler) => {
 
     const jwtToken = cookies.NextJWT;
 
-    if (!jwtToken) return res.json({ message: "Please log in to get access1" });
+    if (!jwtToken) return res.status(401).json({ message: "Please log in to get access" });
 
     try {
       const decoded: any = verify(
@@ -24,7 +24,7 @@ const withProtect = (handler: NextApiHandler) => {
       });
 
       if (!currentUser)
-        return res.json({
+        return res.status(401).json({
           success: false,
           message: "The user belonging to this token no longer exist",
         });
@@ -33,9 +33,9 @@ const withProtect = (handler: NextApiHandler) => {
 
       return handler(req, res);
     } catch {
-      return res.json({
+      return res.status(401).json({
         success: false,
-        message: "Please log in to get access2",
+        message: "You are not authenticated to view this data",
       });
     }
   };

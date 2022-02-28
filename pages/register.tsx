@@ -1,6 +1,6 @@
 import React, { SyntheticEvent, useEffect, useState } from "react";
-import PageContainer from "../components/layout/Main";
-import { formFieldProps } from "../types/interfaces";
+import PageContainer from "@/components/layout/Main";
+import { formFieldProps } from "@/types/interfaces";
 import axios from "axios";
 
 const Register = () => {
