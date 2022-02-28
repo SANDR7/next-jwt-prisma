@@ -47,6 +47,7 @@ const Register = () => {
           <input
             type="password"
             name="current_password"
+            minLength={6}
             required
             onChange={(e) =>
               setFormFields({ ...formFields, password: e.target.value })
@@ -59,6 +60,7 @@ const Register = () => {
             type="password"
             name="repeat_password"
             required
+            minLength={6}
             onChange={(e) =>
               setFormFields({ ...formFields, repeatPassword: e.target.value })
             }

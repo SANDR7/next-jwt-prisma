@@ -23,8 +23,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
 
     if (checkTakenUser) {
-     return res.json(apiMessage('User already taken, try again', false, true))
+      return res.json(apiMessage('User already taken, try again', false, true))
     }
+
+    if (password.length < 6) return res.json(apiMessage('password is to short', false, true))
 
     const hashedPassword = await hash(password, 10);
 
