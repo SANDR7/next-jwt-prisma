@@ -2,6 +2,7 @@ import React, { SyntheticEvent, useEffect, useState } from "react";
 import PageContainer from "@/components/layout/Main";
 import { formFieldProps } from "@/types/interfaces";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 const Register = () => {
   const [formFields, setFormFields] = useState<formFieldProps>({
@@ -9,8 +10,9 @@ const Register = () => {
     password: "",
     repeatPassword: "",
   });
-
   const [validate, setValidate] = useState({message: 'Try register'});
+
+  const router = useRouter();
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
@@ -70,6 +72,11 @@ const Register = () => {
           <input type="submit" value="Register" />
         </div>
       </form>
+      <div>
+        <button onClick={() => router.push('/login')}>
+          Inloggen
+        </button>
+      </div>
     </PageContainer>
   );
 };

@@ -52,6 +52,9 @@ const Login = () => {
           <input type="submit" value="Login" />
         </div>
       </form>
+      <button onClick={() => router.push('/register')}>
+        Registeer
+      </button>
     </PageContainer>
   );
 };
