@@ -18,10 +18,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         }
       });
 
-      res.json(allPosts);
+     return res.json(allPosts);
     } catch {
-      res.json({ message: 'something' });
+     return res.json({ message: 'something' });
     }
   }
-  res.json({ message: 'something' });
+ return res.json({ message: 'something' });
 };
