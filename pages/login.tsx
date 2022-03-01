@@ -12,6 +12,10 @@ const Login = () => {
 
   const router = useRouter();
 
+  const handler = (input: string) => {
+    return (e: any) => setFormFields({ ...formFields, [input]: e.target.value });
+  };
+
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
 
@@ -33,9 +37,7 @@ const Login = () => {
             type="text"
             name="username"
             required
-            onChange={(e) =>
-              setFormFields({ ...formFields, username: e.target.value })
-            }
+            onChange={handler('username')}
           />
         </div>
         <div>
@@ -44,8 +46,7 @@ const Login = () => {
             type={checked ? 'text' : 'password'}
             name="password"
             required
-            onChange={(e) =>
-              setFormFields({ ...formFields, password: e.target.value })
+            onChange={handler('password')
             }
           />
         </div>
