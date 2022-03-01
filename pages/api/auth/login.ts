@@ -34,11 +34,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     const accessToken = sign(
       {
-        exp: Math.floor(Date.now() / 1000) * 60 * 24 * 30,
         username: findUser?.username,
         id: findUser?.id
       },
-      process.env.JWT_SECRET_ACCESS_TOKEN as string
+      process.env.JWT_SECRET_ACCESS_TOKEN as string,
+      { expiresIn: '1h' }
     );
 
     const serialized = serialize('NextJWT', accessToken, {

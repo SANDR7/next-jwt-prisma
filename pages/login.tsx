@@ -21,7 +21,6 @@ const Login = () => {
     if (user.data.success) return router.push('/dashboard/user');
 
     setValidateMsg(user.data);
-    console.log(user);
   };
 
   return (
