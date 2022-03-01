@@ -1,15 +1,17 @@
 import PageContainer from '@/components/layout/Main';
-import { Posts } from '@prisma/client';
+import { Posts, User } from '@prisma/client';
 import axios from 'axios';
 import type { GetServerSideProps, NextPage } from 'next';
 
-const Home: NextPage<{ posts: Posts[] }> = ({ posts }) => {
-  console.log(posts);
+interface PostWithUser extends Posts {
+  User: User;
+}
 
+const Home: NextPage<{ posts: PostWithUser[] }> = ({ posts }) => {
   return (
     <PageContainer>
       {posts &&
-        posts.map((post: Posts) => {
+        posts.map((post: PostWithUser) => {
           return (
             <div
               key={post.title}
