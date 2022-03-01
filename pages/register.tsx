@@ -1,7 +1,8 @@
 import React, { SyntheticEvent, useEffect, useState } from "react";
-import PageContainer from "../components/layout/Main";
-import { formFieldProps } from "../types/interfaces";
+import PageContainer from "@/components/layout/Main";
+import { formFieldProps } from "@/types/interfaces";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 const Register = () => {
   const [formFields, setFormFields] = useState<formFieldProps>({
@@ -9,6 +10,9 @@ const Register = () => {
     password: "",
     repeatPassword: "",
   });
+  const [validate, setValidate] = useState({message: 'Try register'});
+
+  const router = useRouter();
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
@@ -19,11 +23,14 @@ const Register = () => {
     }
 
     const response = await axios.post("/api/insert/user", { username, password });
+
+    setValidate(response.data)
     console.log(response.data);
   };
 
   return (
     <PageContainer>
+      {validate.message}
       <form onSubmit={handleSubmit}>
         {formFields.password !== formFields.repeatPassword && "match niet"}
         <div>
@@ -42,6 +49,7 @@ const Register = () => {
           <input
             type="password"
             name="current_password"
+            minLength={6}
             required
             onChange={(e) =>
               setFormFields({ ...formFields, password: e.target.value })
@@ -54,6 +62,7 @@ const Register = () => {
             type="password"
             name="repeat_password"
             required
+            minLength={6}
             onChange={(e) =>
               setFormFields({ ...formFields, repeatPassword: e.target.value })
             }
@@ -63,6 +72,11 @@ const Register = () => {
           <input type="submit" value="Register" />
         </div>
       </form>
+      <div>
+        <button onClick={() => router.push('/login')}>
+          Inloggen
+        </button>
+      </div>
     </PageContainer>
   );
 };

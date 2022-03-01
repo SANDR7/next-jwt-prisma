@@ -1,8 +1,8 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { User } from "@prisma/client";
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
-import prisma from "../../../lib/prisma";
-import withProtect from "../../../middleware/withProtection";
+import prisma from "@/lib/prisma";
+import withProtect from "@/middleware/withProtection";
 
 declare module "next" {
   interface NextApiRequest {
@@ -22,6 +22,7 @@ const handler: NextApiHandler = async (
       email: true,
       username: true,
       role: true,
+      posts: true,
     },
   });
 
