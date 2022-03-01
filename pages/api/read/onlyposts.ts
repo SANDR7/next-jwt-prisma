@@ -33,13 +33,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
       const posts = newPost?.posts;
 
-      res.status(200).json({ posts, user: req.user });
+      return res.status(200).json({ posts, user: req.user });
     } catch {
-      res.status(500).json(apiMessage('post not created', false, true));
+      return res.status(500).json(apiMessage('post not created', false, true));
     }
   }
-
-  res.json(req.user);
 };
 
 export default withProtect(handler);

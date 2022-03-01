@@ -88,10 +88,13 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     }
   });
 
+  const user = response.data as User;
+  const userPosts = response.data.posts as Posts[];
+
   return {
     props: {
-      user: response.data as User,
-      userPosts: response.data.posts as Posts[]
+      user,
+      userPosts
     }
   };
 };

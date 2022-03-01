@@ -1,6 +1,7 @@
+import apiMessage from '@/constants/ApiMessage';
 import { verify } from 'jsonwebtoken';
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
-import prisma from '../lib/prisma';
+import prisma from '@/lib/prisma';
 
 const withProtect = (handler: NextApiHandler) => {
   return async (req: NextApiRequest, res: NextApiResponse) => {
@@ -8,7 +9,10 @@ const withProtect = (handler: NextApiHandler) => {
 
     const jwtToken = cookies.NextJWT;
 
-    if (!jwtToken) return res.status(401).json({ message: "Please log in to get access" });
+    if (!jwtToken) {
+
+      return res.status(401).json({ message: "Please log in to get access" });
+    }
 
     try {
       const decoded: any = verify(
@@ -22,13 +26,14 @@ const withProtect = (handler: NextApiHandler) => {
         }
       });
 
-      if (!currentUser)
+      if (!currentUser) {
         return res.status(401).json({
           success: false,
           message: 'The user belonging to this token no longer exist'
         });
-
+      }
       req.user = decoded;
+
 
       return handler(req, res);
     } catch {
