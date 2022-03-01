@@ -35,5 +35,12 @@
     "prettier": "^2.5.1",
     "prisma": "^3.10.0",
     "typescript": "4.5.5"
+  },
+  "prettier": {
+    "arrowParens": "always",
+    "singleQuote": true,
+    "tabWidth": 2,
+    "trailingComma": "none"
   }
+
 }

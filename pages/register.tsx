@@ -1,16 +1,16 @@
-import React, { SyntheticEvent, useEffect, useState } from "react";
-import PageContainer from "@/components/layout/Main";
-import { formFieldProps } from "@/types/interfaces";
-import axios from "axios";
-import { useRouter } from "next/router";
+import PageContainer from '@/components/layout/Main';
+import { formFieldProps } from '@/types/interfaces';
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import React, { SyntheticEvent, useState } from 'react';
 
 const Register = () => {
   const [formFields, setFormFields] = useState<formFieldProps>({
-    username: "",
-    password: "",
-    repeatPassword: "",
+    username: '',
+    password: '',
+    repeatPassword: ''
   });
-  const [validate, setValidate] = useState({message: 'Try register'});
+  const [validate, setValidate] = useState({ message: 'Try register' });
 
   const router = useRouter();
 
@@ -22,9 +22,12 @@ const Register = () => {
       console.log("Password doesn't match");
     }
 
-    const response = await axios.post("/api/insert/user", { username, password });
+    const response = await axios.post('/api/insert/user', {
+      username,
+      password
+    });
 
-    setValidate(response.data)
+    setValidate(response.data);
     console.log(response.data);
   };
 
@@ -32,7 +35,7 @@ const Register = () => {
     <PageContainer>
       {validate.message}
       <form onSubmit={handleSubmit}>
-        {formFields.password !== formFields.repeatPassword && "match niet"}
+        {formFields.password !== formFields.repeatPassword && 'match niet'}
         <div>
           <label htmlFor="username">Username</label>
           <input
@@ -73,9 +76,7 @@ const Register = () => {
         </div>
       </form>
       <div>
-        <button onClick={() => router.push('/login')}>
-          Inloggen
-        </button>
+        <button onClick={() => router.push('/login')}>Inloggen</button>
       </div>
     </PageContainer>
   );

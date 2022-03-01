@@ -1,5 +1,5 @@
-import Head from "next/head";
-import React, { FC, ReactNode } from "react";
+import Head from 'next/head';
+import React, { FC, ReactNode } from 'react';
 
 interface MainProps {
   children: ReactNode;
@@ -10,9 +10,9 @@ const PageContainer: FC<MainProps> = (props) => {
   const { children, ...customMeta } = props;
 
   const meta = {
-    title: "JWT Prisma",
-    description: "Authentication app that combines front-end & back-end",
-    ...customMeta,
+    title: 'JWT Prisma',
+    description: 'Authentication app that combines front-end & back-end',
+    ...customMeta
   };
   return (
     <>
