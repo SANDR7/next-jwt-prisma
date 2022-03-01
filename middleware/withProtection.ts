@@ -1,7 +1,6 @@
-import { User } from "@prisma/client";
-import { verify } from "jsonwebtoken";
-import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
-import prisma from "../lib/prisma";
+import { verify } from 'jsonwebtoken';
+import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
+import prisma from '../lib/prisma';
 
 const withProtect = (handler: NextApiHandler) => {
   return async (req: NextApiRequest, res: NextApiResponse) => {
@@ -9,7 +8,8 @@ const withProtect = (handler: NextApiHandler) => {
 
     const jwtToken = cookies.NextJWT;
 
-    if (!jwtToken) return res.status(401).json({ message: "Please log in to get access" });
+    if (!jwtToken)
+      return res.status(401).json({ message: 'Please log in to get access' });
 
     try {
       const decoded: any = verify(
@@ -19,14 +19,14 @@ const withProtect = (handler: NextApiHandler) => {
 
       const currentUser = prisma.user.findFirst({
         where: {
-          id: decoded?.id,
-        },
+          id: decoded?.id
+        }
       });
 
       if (!currentUser)
         return res.status(401).json({
           success: false,
-          message: "The user belonging to this token no longer exist",
+          message: 'The user belonging to this token no longer exist'
         });
 
       req.user = decoded;
@@ -35,7 +35,7 @@ const withProtect = (handler: NextApiHandler) => {
     } catch {
       return res.status(401).json({
         success: false,
-        message: "You are not authenticated to view this data",
+        message: 'You are not authenticated to view this data'
       });
     }
   };

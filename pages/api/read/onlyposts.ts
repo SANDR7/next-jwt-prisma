@@ -1,12 +1,8 @@
-import { User } from "@prisma/client";
-import { NextApiRequest, NextApiResponse } from "next";
-import withProtect from "@/middleware/withProtection"
-
+import withProtect from '@/middleware/withProtection';
+import { NextApiRequest, NextApiResponse } from 'next';
 
 const handler = (req: NextApiRequest, res: NextApiResponse) => {
+  res.json(req.user);
+};
 
-
-    res.json(req.user);
-}
-
-export default withProtect(handler)
+export default withProtect(handler);

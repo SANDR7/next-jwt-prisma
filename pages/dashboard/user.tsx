@@ -1,9 +1,8 @@
-import { Posts, User} from "@prisma/client";
-import axios from "axios";
-import { GetServerSideProps } from "next";
-
-import React from "react";
-import AuthContainer from "@/components/layout/Auth";
+import AuthContainer from '@/components/layout/Auth';
+import { Posts, User } from '@prisma/client';
+import axios from 'axios';
+import { GetServerSideProps } from 'next';
+import React from 'react';
 
 const User = ({ user, userPosts }: { user: User; userPosts: Posts[] }) => {
   console.log(user);
@@ -25,27 +24,27 @@ const User = ({ user, userPosts }: { user: User; userPosts: Posts[] }) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const response = await axios.get("/api/read/user", {
+  const response = await axios.get('/api/read/user', {
     withCredentials: true,
-    baseURL: "http://localhost:3000",
+    baseURL: 'http://localhost:3000',
     headers: {
-      Cookie: `NextJWT=${req.cookies.NextJWT}`,
-    },
+      Cookie: `NextJWT=${req.cookies.NextJWT}`
+    }
   });
 
   if (!response.data.success || !req.cookies.NextJWT)
     return {
       redirect: {
         permanent: false,
-        destination: "/login",
-      },
+        destination: '/login'
+      }
     };
 
   return {
     props: {
       user: response.data as User,
-      userPosts: response.data.posts as Posts[],
-    },
+      userPosts: response.data.posts as Posts[]
+    }
   };
 };
 

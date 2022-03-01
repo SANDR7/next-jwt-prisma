@@ -1,8 +1,8 @@
-import { User } from "@prisma/client";
-import axios from "axios";
-import Head from "next/head";
-import { useRouter } from "next/router";
-import React, { FC, ReactNode } from "react";
+import { User } from '@prisma/client';
+import axios from 'axios';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import React, { FC, ReactNode } from 'react';
 
 interface MainProps {
   children: ReactNode;
@@ -16,14 +16,14 @@ const AuthContainer: FC<MainProps> = (props) => {
   const router = useRouter();
 
   const meta = {
-    title: "JWT Logged",
-    description: "Authentication app that combines front-end & back-end",
+    title: 'JWT Logged',
+    description: 'Authentication app that combines front-end & back-end'
   };
 
   const logout = async () => {
-    const user = await axios.get("/api/auth/logout");
+    const user = await axios.get('/api/auth/logout');
 
-    router.push("/login");
+    router.push('/login');
 
     console.log(user);
   };
@@ -43,9 +43,9 @@ const AuthContainer: FC<MainProps> = (props) => {
         <meta name="twitter:description" content={meta.description} />
       </Head>
 
-      <header style={{ display: "flex", justifyContent: "space-between" }}>
+      <header style={{ display: 'flex', justifyContent: 'space-between' }}>
         <div>
-          <h2>Welcome, {credentials.username || "Guest"}</h2>
+          <h2>Welcome, {credentials.username || 'Guest'}</h2>
           <p>You are a {credentials.role}</p>
         </div>
 
