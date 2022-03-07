@@ -91,7 +91,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     };
   const response = await axios.get('/api/read/user', {
     withCredentials: true,
-    baseURL: 'http://localhost:3000',
+    baseURL: process.env.BASE_URL,
     headers: {
       Cookie: `NextJWT=${req.cookies.NextJWT}`
     }
