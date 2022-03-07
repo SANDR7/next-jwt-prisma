@@ -20,12 +20,9 @@ const AuthContainer: FC<MainProps> = (props) => {
     description: 'Authentication app that combines front-end & back-end'
   };
 
-  const logout = async () => {
-    const user = await axios.get('/api/auth/logout');
-
-    router.push('/login');
-
-    console.log(user);
+  const logout = () => {
+    return async () =>
+      await axios.get('/api/auth/logout').then(() => router.push('/login'));
   };
   return (
     <>
@@ -50,7 +47,7 @@ const AuthContainer: FC<MainProps> = (props) => {
         </div>
 
         <div>
-          <button onClick={() => logout()}>Log out</button>
+          <button onClick={logout()}>Log out</button>
         </div>
       </header>
 

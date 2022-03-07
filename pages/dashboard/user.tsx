@@ -2,9 +2,10 @@ import AuthContainer from '@/components/layout/Auth';
 import { Posts, User } from '@prisma/client';
 import axios from 'axios';
 import { GetServerSideProps } from 'next';
+import Link from 'next/link';
 import React, { useState } from 'react';
 
-const User = ({ user, userPosts }: { user: User; userPosts: Posts[] }) => {
+const UserPage = ({ user, userPosts }: { user: User; userPosts: Posts[] }) => {
   const [thePosts, setThePosts] = useState(userPosts);
 
   const [postFields, setPostFields] = useState<{ title: string; text: string }>(
@@ -32,6 +33,14 @@ const User = ({ user, userPosts }: { user: User; userPosts: Posts[] }) => {
   return (
     <AuthContainer credentials={user}>
       Hi user with the name {user.username}
+      <br />
+      <br />
+      <div>
+        got to your page{' '}
+        <Link passHref href={`/dashboard/${user.username}`}>
+          <a>{user.username}</a>
+        </Link>
+      </div>
       <div style={{ background: 'lightblue' }}>
         {thePosts &&
           thePosts.map((post: Posts, idx: number) => (
@@ -99,4 +108,4 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   };
 };
 
-export default User;
+export default UserPage;

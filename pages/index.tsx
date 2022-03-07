@@ -1,6 +1,6 @@
 import PageContainer from '@/components/layout/Main';
+import prisma from '@/lib/prisma';
 import { Posts, User } from '@prisma/client';
-import axios from 'axios';
 import type { GetServerSideProps, NextPage } from 'next';
 
 interface PostWithUser extends Posts {
@@ -10,8 +10,8 @@ interface PostWithUser extends Posts {
 const Home: NextPage<{ posts: PostWithUser[] }> = ({ posts }) => {
   return (
     <PageContainer>
-      {posts &&
-        posts.map((post: PostWithUser) => {
+      {posts ? (
+        posts?.map((post: PostWithUser) => {
           return (
             <div
               key={post.title}
@@ -22,7 +22,12 @@ const Home: NextPage<{ posts: PostWithUser[] }> = ({ posts }) => {
               <p>~ {post.User.username}</p>
             </div>
           );
-        })}
+        })
+      ) : (
+        <div>
+          <h2>No posts found</h2>
+        </div>
+      )}
     </PageContainer>
   );
 };
@@ -30,13 +35,22 @@ const Home: NextPage<{ posts: PostWithUser[] }> = ({ posts }) => {
 export default Home;
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const response = await axios.get('http://localhost:3000/api/read/posts');
-
-  console.log(response.data);
+  const allPosts = await prisma.posts.findMany({
+    select: {
+      title: true,
+      description: true,
+      User: {
+        select: {
+          username: true,
+          email: true
+        }
+      }
+    }
+  });
 
   return {
     props: {
-      posts: response.data
+      posts: allPosts
     }
   };
 };
